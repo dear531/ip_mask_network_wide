@@ -5,7 +5,7 @@
 #include <arpa/inet.h>
 
 
-int main(int argc, char *argv[])
+int test1(void)
 {
 	char ip[] = "192.168.1.1";
 	char mask[] = "255.255.255.128";
@@ -40,5 +40,41 @@ int main(int argc, char *argv[])
 		printf("userip:%s is\n", userip);
 	else
 		printf("userip:%s is'nt\n", userip);
+	printf("saveuserip:%d\n", saveuserip);
+	return;
+}
+
+void test2(void)
+{
+	char ip[] = "192.168.1.128";
+	char mask[] = "255.255.255.128";
+	int tmp;
+	tmp = ntohl(inet_addr(ip));
+	printf("tmp:%d\n", tmp);
+	
+	return;
+}
+void test3(void)
+{
+	char ip[] = "192.168.1.129";
+	char mask[] = "255.255.255.128";
+	char user[] = "192.168.1.130";
+	int max, min;
+	min = ntohl(inet_addr(ip) & inet_addr(mask));
+	max = ntohl(inet_addr(ip) | ~inet_addr(mask));
+	if (ntohl(inet_addr(user)) > max
+		|| ntohl(inet_addr(user)) < min)
+		printf("user:%s is'nt\n", user);
+	else
+		printf("user:%s is\n", user);
+	return;
+}
+
+int main(void)
+{
+
+	test1();
+	test2();
+	test3();
 	return 0;
 }
